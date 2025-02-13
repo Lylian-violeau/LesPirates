@@ -4,11 +4,18 @@ import joueur.Joueur;
 
 public class Cartes {
 	///Type a definir
-	private String nom;
-	//private effets = [3]ENUM;
+	public String nom;
 	
 	
 	//Constructeur a faire
+	
+	public String getNom() {
+		return nom;
+	}
+	
+	public enum Effets{
+		//Tuple chiant a faire mais faisable avec une autre methode a part
+	}
 	
 	public void perdreVieAdv(Joueur j2, Integer nb) {
 		for(int i = 0 ; i<nb ; i++) {
