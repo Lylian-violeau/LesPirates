@@ -1,6 +1,7 @@
 package joueur;
 
 import cartes.Main;
+import affichage.Affichage;
 
 public class Joueur {
 	private String nom;
@@ -8,14 +9,12 @@ public class Joueur {
 	private Integer popularite;
 	private Main main;
 	
+
+
 	public Joueur(String nom) {
 		this.nom = nom;
 		this.vie = 5;
 		this.popularite = 0;
-	}
-	
-	public void changerNom(Joueur j1, String newNom) {
-		j1.nom = newNom;
 	}
 	
 	public String getNom() {
