@@ -1,14 +1,21 @@
 package joueur;
 
+import cartes.Main;
+
 public class Joueur {
 	private String nom;
 	private Integer vie;
 	private Integer popularite;
+	private Main main;
 	
 	public Joueur(String nom) {
 		this.nom = nom;
 		this.vie = 5;
 		this.popularite = 0;
+	}
+	
+	public void changerNom(Joueur j1, String newNom) {
+		j1.nom = newNom;
 	}
 	
 	public String getNom() {
@@ -37,5 +44,9 @@ public class Joueur {
 	
 	public void perdrePop(Joueur j1) {
 		j1.popularite = j1.popularite-1;
+	}
+	
+	public void afficherMain() {
+		System.out.println(this.main);
 	}
 }
