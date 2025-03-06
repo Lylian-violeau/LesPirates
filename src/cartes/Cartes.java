@@ -1,20 +1,21 @@
 package cartes;
 
-import joueur.Joueur;
-
-public class Cartes {
-	///Type a definir
+public abstract class Cartes {
 	public String nom;
+	public Effet effet; 
 	
 	
-	//Constructeur a faire
+	public Cartes(String nom, Effet effet) {
+		this.nom = nom;
+		this.effet = effet;
+	}
 	
 	public String getNom() {
 		return nom;
 	}
 	
-	public enum Effets{
-		//Tuple chiant a faire mais faisable avec une autre methode a part
+	public Effet getEffet() {
+		return effet;
 	}
 	
 }
