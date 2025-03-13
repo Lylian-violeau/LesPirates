@@ -1,6 +1,6 @@
 package cartes;
 
-public abstract class Cartes {
+public class Cartes {
 	public String nom;
 	public Effet effet; 
 	
@@ -10,6 +10,7 @@ public abstract class Cartes {
 		this.effet = effet;
 	}
 	
+	
 	public String getNom() {
 		return nom;
 	}
@@ -18,4 +19,8 @@ public abstract class Cartes {
 		return effet;
 	}
 	
+	public void afficherCarte() {
+		System.out.println(nom);
+		System.out.println(effet);
+	}
 }

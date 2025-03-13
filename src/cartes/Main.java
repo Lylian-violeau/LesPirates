@@ -1,62 +1,121 @@
 package cartes;
 
+import java.util.Random;
 import java.util.Scanner;
+import jeu.Jeu;
+import joueur.Joueur;
 
 public class Main {
 	private Cartes[] main;
 	public static final int NB_MAX = 5;
 	public static Scanner sc = new Scanner(System.in);
 	Pioche pioche = new Pioche();
+	Random nbRandom = new Random();
 	
 	public Main() {
 		this.main = new Cartes[NB_MAX];
-	}
-	
-	public void afficheMain() {
-		for(int i = 0; i < NB_MAX; i++) {
-			System.out.println(main[i]);
+		for (int i = 0; i<4;i++) {
+			piocherCarte();
 		}
 	}
 	
-	public void jouerCarte(Cartes carte) {
-		System.out.println("Vous jouer la carte:");
-		carte.getNom();
-		//application des effets de la carte
+	public void afficheMain(Jeu jeu) {
+		for(int i = 0; i < NB_MAX; i++) {
+			jeu.afficherCarte(main[i]);
+		}
 	}
 	
-	public void utiliserCarte() {
-		System.out.println("Voici votre main :");
-		afficheMain();
-		System.out.println("Choisissz une carte a jouer entre 1 et 5:");
+	public void jouerCarte(Cartes carte, Joueur jtour, Joueur jadv) {
+		
+		switch(carte.getNom()) {
+			case "COUPDESABRE" :
+				jadv.modifVie(-2);
+				break;
+				
+			case "ABORDAGEREUSSI":
+				jtour.modifPop(1);
+				break;
+			
+			case "MAINDEFER":
+				jtour.modifPop(2);
+				jtour.modifVie(-1);
+				break;
+			
+			case "DISCOURINSPIRANT":
+				jtour.modifPop(1);
+				break;
+				
+			case "REVOLTEORGANISEE":
+				jtour.modifPop(1);
+				break;
+				
+			case "RENOUVEAU":
+				jtour.remettrePioche();
+				break;
+				
+			case "DECLIN":
+				jadv.remettrePioche();
+				break;
+				
+			case "ROULETTERUSSE":
+				int val = nbRandom.nextInt(2);
+				if (val == 0) {
+					jtour.modifPop(2);
+				}
+				else {
+					jtour.modifVie(-1);
+				}
+			
+			case "EGOFRAGILE":
+				if(jtour.getPop() <= 2) {
+					jtour.modifVie(1);
+				}
+				else {
+					jtour.modifVie(-1);
+				}
+				
+			case "AURAINSTABLE":
+				if(jtour.getVie() >= 3) {
+					jtour.modifPop(1);
+				}
+				else {
+					jtour.modifPop(-1);
+				}
+		}
+	}
+	
+	public void utiliserCarte(Jeu jeu, Joueur jtour, Joueur jadv) {
+		jeu.afficherJouerCarte();
+		afficheMain(jeu);
 		int carteJ = sc.nextInt();
 		switch(carteJ) {
 			case 1:
-				System.out.println("Vous jouer la carte n�1");
-				jouerCarte(main[0]);
+				jeu.afficheChoixCarte(1);
+				jouerCarte(main[0],jtour, jadv);
 				main[0] = null;
 				break;
 			
 			case 2:
-				System.out.println("Vous jouer la carte n�2");
-				jouerCarte(main[1]);
+				jeu.afficheChoixCarte(2);
+				jouerCarte(main[1],jtour, jadv);
 				main[1] = null;
 				break;
 			
 			case 3:
-				System.out.println("Vous jouer la carte n�3");
-				jouerCarte(main[2]);
+				jeu.afficheChoixCarte(3);
+				jouerCarte(main[2],jtour, jadv);
 				main[2] = null;
 				break;
 				
 			case 4:
-				System.out.println("Vous jouer la carte n�4");
-				jouerCarte(main[3]);
+				jeu.afficheChoixCarte(4);
+				jouerCarte(main[3],jtour, jadv);
 				main[3] = null;
 				break;
 				
 			case 5:
-				System.out.println("Vous jouer la carte n�5");
-				jouerCarte(main[4]);
+				jeu.afficheChoixCarte(5);
+				jouerCarte(main[4],jtour, jadv);
 				main[4] = null;
 				break;
 		}
@@ -67,9 +126,17 @@ public class Main {
 			if(main[i] == null) {
 				main[i] = pioche.piocher();
 			}
-			else {
-				System.out.println("Impossible de piocher vous avez deja 5 cartes");
-			}
 		}		
+	}
+	
+	public void carteRemettrePioche() {
+		for(int i = 0; i<NB_MAX; i++) {
+			if(main[i] != null) {
+				main[i] = null;
+			}
+		}
+		for(int i = 0; i<4; i++) {
+			piocherCarte();
+		}
 	}
 }

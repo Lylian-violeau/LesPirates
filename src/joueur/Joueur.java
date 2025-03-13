@@ -2,8 +2,7 @@ package joueur;
 
 import cartes.Banc;
 import cartes.Main;
-import affichage.Affichages;
-import cartes.Pioche;
+import jeu.Jeu;
 
 public class Joueur {
 	private String nom;
@@ -11,30 +10,36 @@ public class Joueur {
 	private Integer popularite;
 	private Main main;
 	private Banc banc;
-	//public Pioche pioche;
 	
 
 
-	public Joueur(String nom) {
+	public Joueur(String nom, Banc banc, Main main) {
 		this.nom = nom;
 		this.vie = 5;
 		this.popularite = 0;
+		this.banc = banc;
+		this.main = main;		
 	}
 	
-	public void creerMain() {
-		main = new Main();
+	public void piocher(Main main) {
+		main.piocherCarte();
+	}
+	
+	public void remettrePioche() {
+		main.carteRemettrePioche();
 	}
 	
 	public void afficherMain() {
-		System.out.println(main);
+		main.afficheMain();;
 	}
 	
 	public void afficherBanc() {
-		System.out.println(banc);
+		banc.afficheBanc();;
 	}
 	
-	//faire methode effet carte qui est dans main PB JOUEUR A PAS ACCES A LA CLASSE CARTE
-	//faire methode piocher PB ELLE EST DANS CLASSE MAIN SELON MOI
+	public void carteJouer(Jeu game, Joueur jtour, Joueur jadv) {
+		main.utiliserCarte(game, jtour, jadv);
+	}
 	
 	public String getNom() {
 		return nom;
@@ -48,11 +53,11 @@ public class Joueur {
 		return popularite;
 	}
 	
-	public void modifVie(Integer modifVie) {
+	public void modifVie(int modifVie) {
 		vie = vie + modifVie;
 	}
 	
-	public void modifPop(Integer modifPop) {
+	public void modifPop(int modifPop) {
 		popularite = popularite + modifPop;		
 	}
 }
