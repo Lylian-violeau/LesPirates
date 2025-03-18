@@ -12,10 +12,10 @@ public class Main {
 	Pioche pioche = new Pioche();
 	Random nbRandom = new Random();
 	
-	public Main() {
+	public Main(Pioche pioche) {
 		this.main = new Cartes[NB_MAX];
 		for (int i = 0; i<4;i++) {
-			piocherCarte();
+			piocherCarte(pioche);
 		}
 	}
 	
@@ -65,6 +65,7 @@ public class Main {
 				else {
 					jtour.modifVie(-1);
 				}
+				break;
 			
 			case "EGOFRAGILE":
 				if(jtour.getPop() <= 2) {
@@ -73,6 +74,7 @@ public class Main {
 				else {
 					jtour.modifVie(-1);
 				}
+				break;
 				
 			case "AURAINSTABLE":
 				if(jtour.getVie() >= 3) {
@@ -81,6 +83,7 @@ public class Main {
 				else {
 					jtour.modifPop(-1);
 				}
+				break;
 		}
 	}
 	
@@ -121,7 +124,7 @@ public class Main {
 		}
 	}
 	
-	public void piocherCarte() {
+	public void piocherCarte(Pioche pioche) {
 		for(int i = 0; i<NB_MAX; i++) {
 			if(main[i] == null) {
 				main[i] = pioche.piocher();
@@ -136,7 +139,7 @@ public class Main {
 			}
 		}
 		for(int i = 0; i<4; i++) {
-			piocherCarte();
+			//piocherCarte(); a revoir la methode
 		}
 	}
 }

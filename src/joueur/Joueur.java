@@ -21,7 +21,7 @@ public class Joueur {
 		this.main = main;		
 	}
 	
-	public void piocher(Main main) {
+	public void piocher() {
 		main.piocherCarte();
 	}
 	
@@ -34,7 +34,7 @@ public class Joueur {
 	}
 	
 	public void afficherBanc() {
-		banc.afficheBanc();;
+		banc.afficheBanc();
 	}
 	
 	public void carteJouer(Jeu game, Joueur jtour, Joueur jadv) {
