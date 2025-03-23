@@ -5,7 +5,7 @@ public class Cartes {
 	public Effet effet; 
 	
 	
-	protected Cartes(String nom, Effet effet) {
+	public Cartes(String nom, Effet effet) {
 		this.nom = nom;
 		this.effet = effet;
 	}
