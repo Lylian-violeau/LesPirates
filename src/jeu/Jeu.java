@@ -2,7 +2,6 @@ package jeu;
 
 import java.util.Scanner;
 
-import cartes.Banc;
 import cartes.Cartes;
 import cartes.Main;
 import cartes.Pioche;
@@ -20,9 +19,9 @@ public class Jeu {
 	
 	public  void afficherRegle() {
 		System.out.println("Règles du Jeu :");
-		System.out.println("Chaque joueur débute avec 4 cartes, lors de son tour le joueur pioche une carte de sa pioche et l'ajoute à sa main.");
-		System.out.println("Il utilise ensuite une de ces 5 cartes et active son effet avant de finir son tour (pour passer le tour, l'utilisation d'une carte est obligatoire).");
-		System.out.println("Le tour passe ensuite à celui de l'adversaire.");
+		System.out.println("\tChaque joueur débute avec 4 cartes, lors de son tour le joueur pioche une carte de sa pioche et l'ajoute à sa main.");
+		System.out.println("\tIl utilise ensuite une de ces 5 cartes et active son effet avant de finir son tour (pour passer le tour, l'utilisation d'une carte est obligatoire).");
+		System.out.println("\tLe tour passe ensuite à celui de l'adversaire.");
 	}
 	public String afficheNomJoueur(int nbJoueur) {
 		String nom = "";
@@ -44,9 +43,8 @@ public class Jeu {
 		System.out.println("\nL'impitoyable pirate " + j1.getNom() + " sera en duel face au terrible pirate " + j2.getNom() + ".");
 	}
 	
-	public void afficherCarte(Cartes carte) {
-		System.out.println(carte.getNom());
-		System.out.println(carte.getEffet());
+	public String afficherCarte(Cartes carte) {
+		return carte.getNom();
 	}
 	
 	public void afficherJouerCarte() {
@@ -65,33 +63,20 @@ public class Jeu {
 		return tour;
 	}
 	
-	public void tourJoueur(Main main, Joueur j) {
-		j.piocher(main);
+	public void tourJoueur(Joueur j) {
+		j.piocher();
 		System.out.println("\nVous :");
 		System.out.println(j.getNom() + " : " + j.getVie() + " PV et " + j.getPop() + " Popularité");
-		j.afficherBanc();
 		j.afficherMain();
 	}
 	
 	public void tourAdv(Joueur adv) {
 		System.out.println("\nAdversaire :");
 		System.out.println(adv.getNom() + " : " + adv.getVie() + " PV et " + adv.getPop() + " Popularité");
-		adv.afficherBanc();;
 	}
 	
 	public void vaiqueur(Joueur j) {
 		System.out.println("\nLe vainqueur est le pirate " + j.getNom() + ". Félicitation !!!");
-	}
-	
-	public void afficheJeu(Joueur j1, Joueur j2) {
-		System.out.println("\n############################");
-		System.out.println(j1.getNom() + " : " + j1.getVie() + " PV et " + j1.getPop() + "Popularité");
-		j1.afficherBanc();
-		j1.afficherMain();
-		
-		System.out.println(j2.getNom() + " : " + j2.getVie() + " PV et " + j2.getPop() + "Popularité");
-		j2.afficherBanc();
-		j2.afficherMain();
 	}
 	
 	public void jeuCarte(Jeu game, Joueur jtour, Joueur jadv) {
@@ -105,17 +90,14 @@ public class Jeu {
 		Jeu game = new Jeu();
 		Joueur gagnant;
 		
+		Main mainj1 = new Main(pioche);
+		Joueur joueur1 = new Joueur(game.afficheNomJoueur(1), mainj1);
+		
+		Main mainj2 = new Main(pioche);
+		Joueur joueur2 = new Joueur(game.afficheNomJoueur(2), mainj2);
+		
 		game.afficherContexte();
 		game.afficherRegle();
-		
-		Main mainj1 = new Main();
-		Banc bancj1 = new Banc();
-		Joueur joueur1 = new Joueur(game.afficheNomJoueur(1), bancj1, mainj1);
-		
-		Main mainj2 = new Main();
-		Banc bancj2 = new Banc();
-		Joueur joueur2 = new Joueur(game.afficheNomJoueur(2), bancj2, mainj2);
-		
 		game.afficherStart(joueur1, joueur2);
 		
 		int tour = 0;
@@ -123,12 +105,12 @@ public class Jeu {
 		while(joueur1.getVie() > 0 && joueur2.getVie() > 0 && joueur1.getPop() < 5 && joueur2.getPop() < 5) {
 			tour = game.tourA(tour);
 			
-			game.tourJoueur(mainj1, joueur1);
+			game.tourJoueur(joueur1);
 			game.tourAdv(joueur2);
 			game.jeuCarte(game, joueur1, joueur2);
 	
 			if(joueur1.getVie() > 0 && joueur2.getVie() > 0 && joueur1.getPop() < 5 && joueur2.getPop() < 5) {
-				game.tourJoueur(mainj2, joueur2);
+				game.tourJoueur(joueur2);
 				game.tourAdv(joueur1);
 				game.jeuCarte(game, joueur2, joueur1);
 			}
@@ -139,10 +121,6 @@ public class Jeu {
 		}else {
 			gagnant = joueur1;
 		}
-		
-		pioche.affichePioche();
-		
-		game.afficheJeu(joueur1, joueur2);
 		
 		game.vaiqueur(gagnant);
 	}

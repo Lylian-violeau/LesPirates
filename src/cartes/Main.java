@@ -9,7 +9,6 @@ public class Main {
 	private Cartes[] main;
 	public static final int NB_MAX = 5;
 	public static Scanner sc = new Scanner(System.in);
-	Pioche pioche = new Pioche();
 	Random nbRandom = new Random();
 	
 	public Main(Pioche pioche) {
@@ -19,10 +18,12 @@ public class Main {
 		}
 	}
 	
-	public void afficheMain(Jeu jeu) {
+	public String afficheMain() {
+		String affichmain = "";
 		for(int i = 0; i < NB_MAX; i++) {
-			jeu.afficherCarte(main[i]);
+			affichmain = affichmain  + main[i].getNom() + "/";
 		}
+		return affichmain;
 	}
 	
 	public void jouerCarte(Cartes carte, Joueur jtour, Joueur jadv) {
@@ -84,12 +85,16 @@ public class Main {
 					jtour.modifPop(-1);
 				}
 				break;
+				
+			case "SOIN" :
+				jtour.modifVie(2);
+				break;
 		}
 	}
 	
 	public void utiliserCarte(Jeu jeu, Joueur jtour, Joueur jadv) {
 		jeu.afficherJouerCarte();
-		afficheMain(jeu);
+		jtour.afficherMain();
 		int carteJ = sc.nextInt();
 		switch(carteJ) {
 			case 1:
@@ -132,14 +137,14 @@ public class Main {
 		}		
 	}
 	
-	public void carteRemettrePioche() {
+	public void carteRemettrePioche(Pioche pioche) {
 		for(int i = 0; i<NB_MAX; i++) {
 			if(main[i] != null) {
 				main[i] = null;
 			}
 		}
 		for(int i = 0; i<4; i++) {
-			//piocherCarte(); a revoir la methode
+			piocherCarte(pioche);
 		}
 	}
 }

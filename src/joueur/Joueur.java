@@ -1,40 +1,36 @@
 package joueur;
 
-import cartes.Banc;
 import cartes.Main;
+import cartes.Pioche;
 import jeu.Jeu;
 
 public class Joueur {
 	private String nom;
 	private Integer vie;
 	private Integer popularite;
-	private Main main;
-	private Banc banc;
+	private Pioche pioche = new Pioche();
+	private Main main = new Main(pioche);
+	
 	
 
 
-	public Joueur(String nom, Banc banc, Main main) {
+	public Joueur(String nom, Main main) {
 		this.nom = nom;
 		this.vie = 5;
 		this.popularite = 0;
-		this.banc = banc;
 		this.main = main;		
 	}
 	
 	public void piocher() {
-		main.piocherCarte();
+		main.piocherCarte(this.pioche);
 	}
 	
 	public void remettrePioche() {
-		main.carteRemettrePioche();
+		main.carteRemettrePioche(this.pioche);
 	}
 	
 	public void afficherMain() {
-		main.afficheMain();;
-	}
-	
-	public void afficherBanc() {
-		banc.afficheBanc();
+		System.out.println(main.afficheMain());
 	}
 	
 	public void carteJouer(Jeu game, Joueur jtour, Joueur jadv) {
