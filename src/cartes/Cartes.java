@@ -5,7 +5,7 @@ public class Cartes {
 	public Effet effet; 
 	
 	
-	public Cartes(String nom, Effet effet) {
+	protected Cartes(String nom, Effet effet) {
 		this.nom = nom;
 		this.effet = effet;
 	}
@@ -17,10 +17,5 @@ public class Cartes {
 	
 	public Effet getEffet() {
 		return effet;
-	}
-	
-	public void afficherCarte() {
-		System.out.println(nom);
-		System.out.println(effet);
 	}
 }
